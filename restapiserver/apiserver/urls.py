@@ -5,6 +5,6 @@ from medicine.views import pharmacy_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', data_list),
+    path('m/', data_list),
     path('p/', pharmacy_list),
 ]
