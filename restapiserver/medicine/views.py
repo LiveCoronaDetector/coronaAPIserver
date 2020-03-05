@@ -4,6 +4,9 @@ from rest_framework.parsers import JSONParser
 from .models import Pharmacy
 from .serializers import PharmacySerializer
 
+def user_input(request):
+    return render(request, 'medicine/medicine.html')
+
 def pharmacy_list(request):
     if request.method == 'GET':
         pharmacy = Pharmacy.objects.all()
