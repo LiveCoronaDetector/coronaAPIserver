@@ -5,7 +5,12 @@ from .models import Pharmacy
 from .serializers import PharmacySerializer
 
 def user_input(request):
-    return render(request, 'medicine/medicine.html')
+    if request.method == 'GET':
+        pharmacy = Pharmacy.objects.all()
+        return render(request, 'medicine/medicine.html', {'pharmacy': pharmacy})
+    elif request.method == 'POST':
+        return render(request, 'medicine/medicine.html')
+    
 
 def pharmacy_list(request):
     if request.method == 'GET':

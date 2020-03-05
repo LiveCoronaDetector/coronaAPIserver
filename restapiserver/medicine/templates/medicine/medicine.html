@@ -6,22 +6,15 @@
 <body>
   <h1>약국 입력</h1>
   <p>설명 : 이 input창에는 기존에 입력된 수량들이 나와야 합니다. 경도 위도는 admin page에서 우리가 직접 넣어줍니다.</p>
-  <form action="" method="GET">
-    <p>약국이름 : 온누리 약국(제주도 제주시 동광로 137 대동빌딩 4층)</p>
-    <label for="마스크">마스크</label>
-    <input id="마스크" name="마스크" type="number" value="m">
-    <label for="손세정제">손세정제</label>
-    <input id="손세정제" name="손세정제" type="number" value="h">
-    <p>약국이름 : 하나 약국(제주도 제주시 동광로 137 대동빌딩 4층)</p>
-    <label for="마스크">마스크</label>
-    <input id="마스크" name="마스크" type="number" value="m">
-    <label for="손세정제">손세정제</label>
-    <input id="손세정제" name="손세정제" type="number" value="h">
-    <p>약국이름 : 둘 약국(제주도 제주시 동광로 137 대동빌딩 4층)</p>
-    <label for="마스크">마스크</label>
-    <input id="마스크" name="마스크" type="number" value="m">
-    <label for="손세정제">손세정제</label>
-    <input id="손세정제" name="손세정제" type="number" value="h">
+  <form action="/" method="POST">
+    {% csrf_token %}
+    {% for list in pharmacy  %}
+      <p>{{ list.id }} 약국이름 : {{ list.pharmacy_name }}</p>
+      <label for="마스크">마스크</label>
+      <input id="마스크" name="마스크" type="number" value="{{ list.mask }}">
+      <label for="손세정제">손세정제</label>
+      <input id="손세정제" name="손세정제" type="number" value="{{ list.hand_sanitizer }}">
+    {% endfor %}
     <br>
     <button type="submit">제출하기</button>
   </form>
