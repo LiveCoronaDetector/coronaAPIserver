@@ -2,6 +2,7 @@ from django.db import models
 
 class Pharmacy(models.Model):
     pharmacy_name = models.CharField(max_length=50)
+    pharmacy_address = models.CharField(max_length=80)
     mask = models.IntegerField()
     hand_sanitizer = models.IntegerField()
     lat = models.FloatField(blank=True, null=True)
