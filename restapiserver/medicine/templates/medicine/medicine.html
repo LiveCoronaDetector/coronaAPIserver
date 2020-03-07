@@ -22,16 +22,16 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/innks/NanumSquareRound@master/nanumsquareround.min.css">
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/common.css" rel="stylesheet">
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link href="css/livecod-custom.css" rel="stylesheet">
-    <link href="css/livecod-lsy.css" rel="stylesheet">
+    <link href="{% static 'css/common.css' %}" rel="stylesheet">
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/livecod-custom.css' %}" rel="stylesheet">
+    <link href="{% static 'css/livecod-lsy.css' %}" rel="stylesheet">
 </head>
 <!-- Page Heading -->
 
@@ -65,7 +65,7 @@
                   <div class="col-sm-6 mt-3">
                       <div class="card">
                           <div class="card-header">
-                              <h6 class="m-0 font-weight-bold text-danger">{{ list.id }}. {{ list.pharmacy_name }} (제주도 제주시 동광로 137 대동빌딩 4층)</h6>
+                              <h6 class="m-0 font-weight-bold text-danger">{{ list.id }}. {{ list.pharmacy_name }} ({{ list.pharmacy_address }})</h6>
                           </div>
                           <div class="card-body">
                               <div class="card-text">
