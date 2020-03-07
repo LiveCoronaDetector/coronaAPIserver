@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -35,95 +35,96 @@
 </head>
 <!-- Page Heading -->
 
-<body>
-  <body id="page-top">
-      <div class="container">
-          <form class="needs-validation" novalidate>
-              <div class="row">
-                  <div class="col-sm-9 mt-5">
-                      <h1 class="h3 mb-0 text-gray-800">제주도 약국현황 입력</h1>
-                  </div>
-                  <div class="col-sm-3 mt-5">
-                      <!-- Topbar Search -->
-                      <form class="form-inline navbar-search">
-                          <div class="input-group">
-                              <input type="text" class="form-control bg-light small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                              <div class="input-group-append">
-                                  <button class="btn btn-danger" type="button">
-                                      <i class="fas fa-search fa-sm"></i>
-                                  </button>
-                              </div>
-                          </div>
-                      </form>
-                  </div>
-              </div>
-              <hr>
-              <div class="row">
+<body id="page-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 mt-5">
+                <h1 class="h3 mb-0 text-gray-800">제주도 약국현황 입력</h1>
+            </div>
+            <div class="col-sm-3 mt-5">
+                <!-- Topbar Search -->
+                <form class="form-inline navbar-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-danger" type="button">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            {% for list in pharmacy  %}
+            <div class="col-sm-6 mt-3">
+                <form class="needs-validation" action="/" method="POST" novalidate>
+                    {% csrf_token %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="m-0 font-weight-bold text-danger">{{ list.id }}. {{ list.pharmacy_name }} ({{ list.pharmacy_address }})</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                <div class="form-row">
+                                    <input type='hidden' value="{{ list.id }}" name='id'>
+                                    <div class="col-md-6 mb-3">
+                                        <label>마스크</label>
+                                        <input type="number" name="mask" placeholder="{{ list.mask }}" class="form-control" value="" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label>손세정제</label>
+                                        <input type="number" name="hand_sanitizer" placeholder="{{ list.hand_sanitizer }}" class="form-control" value="" required>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Map -->
+                            <div id="map-container-google-1">
+                                <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" style="border:0;width:100%" allowfullscreen></iframe>
+                            </div>
+                            <!-- //Map -->
+                            <!-- Submit Button -->
+                            <div class="row mt-2">
+                                <div class="col-12 text-right">
+                                    <button class="btn btn-danger" type="submit">제출</button>
+                                </div>
+                            </div>
+                            <!-- //Submit Button -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 
-                {% csrf_token %}
-                {% for list in pharmacy  %}
-                  <div class="col-sm-6 mt-3">
-                      <div class="card">
-                          <div class="card-header">
-                              <h6 class="m-0 font-weight-bold text-danger">{{ list.id }}. {{ list.pharmacy_name }} ({{ list.pharmacy_address }})</h6>
-                          </div>
-                          <div class="card-body">
-                              <div class="card-text">
-                                  <div class="form-row">
-                                      <div class="col-md-6 mb-3">
-                                          <label for="validationCustom01">마스크</label>
-                                          <input type="number" placeholder="{{ list.mask }}" class="form-control" id="validationCustom01" value="Mark" required>
-                                          <div class="valid-feedback">
-                                              Looks good!
-                                          </div>
-                                      </div>
-                                      <div class="col-md-6 mb-3">
-                                          <label for="validationCustom02">손세정제</label>
-                                          <input type="number" placeholder="{{ list.hand_sanitizer }}" class="form-control" id="validationCustom02" value="Otto" required>
-                                          <div class="valid-feedback">
-                                              Looks good!
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <!-- Map -->
-                              <div id="map-container-google-1">
-                                  <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" style="border:0;width:100%" allowfullscreen></iframe>
-                              </div>
-                              <!-- //Map -->
-                          </div>
-                      </div>
-                  </div>
-                {% endfor %}
-              </div>
-              <div class="row mt-2">
-                  <div class="col-12 text-right">
-                      <button class="btn btn-danger" type="submit">제출</button>
-                  </div>
-              </div>
-          </form>
-      </div>
-
-  <script>
-      // Example starter JavaScript for disabling form submissions if there are invalid fields
-      (function () {
-          'use strict';
-          window.addEventListener('load', function () {
-              // Fetch all the forms we want to apply custom Bootstrap validation styles to
-              var forms = document.getElementsByClassName('needs-validation');
-              // Loop over them and prevent submission
-              var validation = Array.prototype.filter.call(forms, function (form) {
-                  form.addEventListener('submit', function (event) {
-                      if (form.checkValidity() === false) {
-                          event.preventDefault();
-                          event.stopPropagation();
-                      }
-                      form.classList.add('was-validated');
-                  }, false);
-              });
-          }, false);
-      })();
-  </script>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
 </body>
 
 </html>

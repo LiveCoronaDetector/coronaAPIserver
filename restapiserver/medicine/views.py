@@ -1,15 +1,26 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from .models import Pharmacy
 from .serializers import PharmacySerializer
+from .forms import PharmacyForm
 
 def user_input(request):
+    print(request.method)
     if request.method == 'GET':
         pharmacy = Pharmacy.objects.all()
         return render(request, 'medicine/medicine.html', {'pharmacy': pharmacy})
+
     elif request.method == 'POST':
-        return render(request, 'medicine/medicine.html')
+        pharmacy = get_object_or_404(Pharmacy, pk=request.POST.get("id"))
+        form = PharmacyForm(request.POST, instance=pharmacy)
+
+        if form.is_valid():
+            member = form.save(commit=False)
+            member.save()
+
+        pharmacy = Pharmacy.objects.all()
+        return render(request, 'medicine/medicine.html', {'pharmacy': pharmacy})
     
 
 def pharmacy_list(request):
